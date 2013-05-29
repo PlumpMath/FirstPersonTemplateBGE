@@ -87,7 +87,10 @@ def mouseLook(cont):
 	cont.activate(aPlayerMotion)
 
 
+
+#
 #player movement
+#
 def playerMove(cont):
 	#get Player
 	oPlayer = cont.owner
@@ -95,9 +98,10 @@ def playerMove(cont):
 	#get the movement actuator
 	aPlayerMotion = cont.actuators["PlayerMotion"]
 	
-	#get the movement properties from Player
-	speedX = oPlayer["speedX"]
-	speedY = oPlayer["speedY"]
+	#get the maxSpeed, acceleration and drag properties
+	maxSpeed = oPlayer["maxSpeed"]
+	acceleration = oPlayer["acceleration"]
+	drag = oPlayer["drag"]
 	
 	#get the keyboard
 	kbd = bge.logic.keyboard
@@ -105,28 +109,66 @@ def playerMove(cont):
 	#make some temporary values for the movement stuff
 	moveX = 0.0
 	moveY = 0.0
-	#and some temp values for the key presses
-	w = 0
-	a = 0
-	s = 0
-	d = 0
+	
+	#we've got some values we only want to declare on startup, so we'll do a little initialization trickery to do so
+	#THERE'S PROBABLY A BETTER WAY TO DO THIS
+	if not 'moveInit' in oPlayer:
+		oPlayer['moveInit'] = True
+		oPlayer['w'] = 0.0
+		oPlayer['a'] = 0.0
+		oPlayer['s'] = 0.0
+		oPlayer['d'] = 0.0
 	
 	#let's see what keys are pressed on the keyboard
+	#
+	#we're also going to apply the acceleration and drag values to each of these values 
+	#depending on whether the key is pressed or not
 	if(kbd.events[bge.events.WKEY] > 0):
-		w = 1
+		oPlayer['w'] += acceleration
+		#make sure w isn't higher than the maxSpeed
+		if oPlayer['w'] > maxSpeed:
+			oPlayer['w'] = maxSpeed
+	#and now for the drag
+	else:
+		oPlayer['w'] -= drag
+		#we don't want to overdo it (e.g. go backwards) so make sure it doesn't drop below 0
+		if oPlayer['w'] < 0:
+			oPlayer['w'] = 0 
 	
+	#repeat for the other keys
 	if(kbd.events[bge.events.AKEY] > 0):
-		a = 1
+		oPlayer['a'] += acceleration
+		if oPlayer['a'] > maxSpeed:
+			oPlayer['a'] = maxSpeed
+	else:
+		oPlayer['a'] -= drag
+		if oPlayer['a'] < 0:
+			oPlayer['a'] = 0
 	
 	if(kbd.events[bge.events.SKEY] > 0):
-		s = 1
+		oPlayer['s'] += acceleration
+		if oPlayer['s'] > maxSpeed:
+			oPlayer['s'] = maxSpeed
+	else:
+		oPlayer['s'] -= drag
+		if oPlayer['s'] < 0:
+			oPlayer['s'] = 0
 	
 	if(kbd.events[bge.events.DKEY] > 0):
-		d = 1
+		oPlayer['d'] += acceleration
+		if oPlayer['d'] > maxSpeed:
+			oPlayer['d'] = maxSpeed
+	else:
+		oPlayer['d'] -= drag
+		if oPlayer['d'] < 0:
+			oPlayer['d'] = 0
+	
+	#DEBUG
+	print(oPlayer['w'],oPlayer['a'],oPlayer['s'],oPlayer['d'])
 	
 	#and let's make those movement values
-	moveX = (d - a) * speedX
-	moveY = (w - s) * speedY
+	moveX = oPlayer['d'] - oPlayer['a']
+	moveY = oPlayer['w'] - oPlayer['s']
 	
 	#apply the movement values to the actuator and actuate
 	aPlayerMotion.useLocalDLoc = True
