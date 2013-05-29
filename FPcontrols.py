@@ -163,9 +163,6 @@ def playerMove(cont):
 		if oPlayer['d'] < 0:
 			oPlayer['d'] = 0
 	
-	#DEBUG
-	print(oPlayer['w'],oPlayer['a'],oPlayer['s'],oPlayer['d'])
-	
 	#and let's make those movement values
 	moveX = oPlayer['d'] - oPlayer['a']
 	moveY = oPlayer['w'] - oPlayer['s']
