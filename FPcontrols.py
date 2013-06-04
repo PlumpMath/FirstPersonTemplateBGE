@@ -19,7 +19,7 @@ def mouseLook(cont):
 	
 	#get the PlayerCam object
 	for obj in oPlayer.children:
-		if obj["name"] == "PlayerCam":
+		if obj["obName"] == "PlayerCam":
 			oPlayerCam = obj
 	
 	#get the PlayerMotion and CamMotion actuators
