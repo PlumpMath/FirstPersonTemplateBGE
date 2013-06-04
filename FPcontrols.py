@@ -121,6 +121,12 @@ def playerMove(cont):
 	
 	#let's see what keys are pressed on the keyboard
 	#
+	
+	#let's implement a "sprint" mode that multiplies the final movement values by sprintFactor
+	if(kbd.events[bge.events.LEFTSHIFTKEY] > 0):
+		maxSpeed *= oPlayer["sprintFactor"]
+	else:
+		maxSpeed = oPlayer["maxSpeed"]
 	#we're also going to apply the acceleration and drag values to each of these values 
 	#depending on whether the key is pressed or not
 	if(kbd.events[bge.events.WKEY] > 0):
@@ -163,9 +169,11 @@ def playerMove(cont):
 		if oPlayer['d'] < 0:
 			oPlayer['d'] = 0
 	
+	
+	
 	#and let's make those movement values
-	moveX = oPlayer['d'] - oPlayer['a']
-	moveY = oPlayer['w'] - oPlayer['s']
+	moveX = (oPlayer['d'] - oPlayer['a'])
+	moveY = (oPlayer['w'] - oPlayer['s'])
 	
 	#apply the movement values to the actuator and actuate
 	aPlayerMotion.useLocalDLoc = True
