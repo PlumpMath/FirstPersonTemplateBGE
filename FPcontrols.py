@@ -14,27 +14,38 @@ import math
 #PlayerCam is parented to Player, so when Player rotates PlayerCam rotates with it
 
 def mouseLook(cont):
-	#get the Player object
-	oPlayer = cont.owner
+
+	#initialization stuff
+	if not "playerInit" in cont.owner:
+		#get the Player object
+		oPlayer = cont.owner
+
+		#get the PlayerCam object
+		for obj in oPlayer.children:
+			if obj["objName"] == "PlayerCam":
+				oPlayerCam = obj
+		
+		#get the PlayerMotion and CamMotion actuators
+		aPlayerMotion = cont.actuators["PlayerMotion"]
+		aCamMotion = cont.actuators["CamMotion"]
+		#get the mouse
+		mouse = bge.logic.mouse
+		
+		#get any custom properties
+		deadzoneX = oPlayer["deadzoneX"]
+		deadzoneY = oPlayer["deadzoneY"]
+		rotXspeed = oPlayer["rotXspeed"]
+		rotYspeed = oPlayer["rotYspeed"]
+		rotMin = oPlayer["rotMin"]
+		rotMax = oPlayer["rotMax"]
+		
+		#center the mouse from the get-go so it doesn't skip around anywhere at all
+		bge.render.setMousePosition(int(bge.render.getWindowWidth()/2), int(bge.render.getWindowHeight()/2))
+
+		oPlayer["init"] = True
 	
-	#get the PlayerCam object
-	for obj in oPlayer.children:
-		if obj["objName"] == "PlayerCam":
-			oPlayerCam = obj
 	
-	#get the PlayerMotion and CamMotion actuators
-	aPlayerMotion = cont.actuators["PlayerMotion"]
-	aCamMotion = cont.actuators["CamMotion"]
-	#get the mouse
-	mouse = bge.logic.mouse
-	
-	#get any custom properties
-	deadzoneX = oPlayer["deadzoneX"]
-	deadzoneY = oPlayer["deadzoneY"]
-	rotXspeed = oPlayer["rotXspeed"]
-	rotYspeed = oPlayer["rotYspeed"]
-	rotMin = oPlayer["rotMin"]
-	rotMax = oPlayer["rotMax"]
+
 
 	
 	#Get the normalized mouse position
