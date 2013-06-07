@@ -1,6 +1,7 @@
 import bge
 import mathutils
 import math
+import inspect
 
 class MouseLook:
 	
@@ -14,7 +15,7 @@ class MouseLook:
 		
 		#get the PlayerCam object
 		for obj in self.oPlayer.children:
-			if obj["objName"] == "PlayerCam":
+			if type(obj) == bge.types.KX_Camera:
 				self.oPlayerCam = obj
 		
 		#get the PlayerMotion and CamMotion actuators
