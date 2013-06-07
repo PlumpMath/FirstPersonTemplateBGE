@@ -3,8 +3,8 @@ First Person Template
 
 What is this?
 -------------
-The First Person Template is a bare-bones first person template object for use with the Blender Game Engine. It's basically two files, or three parts
-*	The script FPcontrols.py, which contains all the modules Blender needs
+The First Person Template is a bare-bones first person template object for use with the Blender Game Engine. It's basically three files, or four parts
+*	The scripts MouseLook.py and PlayerMove.py, which contain all the modules Blender needs
 *	The .blend FPcontrols.blend, which has the Player and PlayerCam objects, as well as a little test scene to run around in
 
 How do I use it?
