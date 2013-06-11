@@ -11,12 +11,20 @@ class SkyboxCam:
 		#if it's empty main won't do much of anything
 		if self.gameCam["skybox"] != "":
 			self.hasSkybox = True
-			#let's also create the background scene with an actuator
-			self.aScene = self.cont.actuators["Scene"]
-			self.aScene.scene = self.gameCam["skybox"]
-			self.cont.activate(self.aScene)
+			#check to see if the background scene already exists
+			self.skyboxSceneCreated = False
+			for scene in bge.logic.getSceneList():
+				if scene.name == self.gameCam["skybox"]:
+					self.skyboxSceneCreated = True
+			#if it hasn't been created, create the background scene with an actuator
+			if not self.skyboxSceneCreated:
+				self.aScene = self.cont.actuators["Scene"]
+				self.aScene.scene = self.gameCam["skybox"]
+				self.cont.activate(self.aScene)
+		#if the skybox prop is empty, don't do anything
 		else:
 			self.hasSkybox = False
+		
 		#we can't get the skybox camera during init because the background scene doesn't exist yet
 		#instead we create a boolean indicating the camera hasn't yet been found
 		self.gotSkyboxCam = False
