@@ -102,4 +102,8 @@ class PlayerMove:
 player_move = PlayerMove(bge.logic.getCurrentController())
 
 def main():
+	#always check to see if the data has been freed, and if so re-init
+	if player_move.cont.invalid:
+		player_move.__init__(bge.logic.getCurrentController())
+
 	player_move.update()

@@ -70,6 +70,8 @@ class MouseLook:
 	
 	#the main method that does all the stuff
 	def update(self):
+		
+		
 		#get the mouse offset
 		mouseOffset = self.getMouseOffset()
 		
@@ -100,4 +102,8 @@ class MouseLook:
 mouse_look = MouseLook(bge.logic.getCurrentController())
 
 def main():
+	#always check to see if the data has been freed, and if so re-init
+	if mouse_look.cont.invalid:
+		mouse_look.__init__(bge.logic.getCurrentController())
+	
 	mouse_look.update()

@@ -49,6 +49,10 @@ class SkyboxCam:
 skybox_cam = SkyboxCam(bge.logic.getCurrentController())
 
 def main():
+	#always check to see if the data has been freed, and if so re-init
+	if skybox_cam.cont.invalid:
+		skybox_cam.__init__(bge.logic.getCurrentController())
+	
 	#only run update if there's a skyboxCam
 	if skybox_cam.hasSkybox:
 		#next we get the skybox camera ONLY if we haven't already found it
