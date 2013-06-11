@@ -3,9 +3,11 @@ First Person Template
 
 What is this?
 -------------
-The First Person Template is a bare-bones first person template object for use with the Blender Game Engine. It's basically three files, or four parts
-*	The scripts MouseLook.py and PlayerMove.py, which contain all the modules Blender needs
-*	The .blend FPcontrols.blend, which has the Player and PlayerCam objects, as well as a little test scene to run around in
+The First Person Template is a bare-bones first person template object for use with the Blender Game Engine. It's made up of a few different parts
+*	The .blend contains two important objects, Player and PlayerCam. These two objects can be linked to any other blender file you might be working on and then made "local" so you can adjust all their properties
+*	MouseLook.py handles all the (you guessed it) mouselook stuff
+*	PlayerMove.py handles all the movement (walking, running, jumping, and some basic acceleration/drag)
+*	SkyboxCam.py controls the optional skybox you can set up for a scene
 
 How do I use it?
 ----------------
