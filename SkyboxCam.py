@@ -6,10 +6,10 @@ def update(cont):
 	"Updates the skybox camera (if a skybox is defined in the \"skybox\" property"
 	
 	#we only want to do stuff if there's something filled in the "skybox" property
-	if cont.owner["skybox"] not "":
+	if cont.owner["skybox"] is not "":
 		#get the skybox cam (if it exists)
 		skyboxCam = getSkyboxCam(cont)
-		if skyboxCam not None:
+		if skyboxCam is not None:
 			#update the cameras!
 			updateCameras(cont.owner, skyboxCam)
 
