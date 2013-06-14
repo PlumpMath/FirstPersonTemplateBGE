@@ -1,7 +1,6 @@
 import bge
 import mathutils
 import math
-import inspect
 
 #our initialization stuff
 def init(cont):
